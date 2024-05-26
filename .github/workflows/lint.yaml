@@ -23,3 +23,6 @@ jobs:
 
     - name: Lint with ruff
       run: ruff check .
+
+    - name: Run Python tests
+      run: make test
