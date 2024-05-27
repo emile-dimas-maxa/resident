@@ -10,3 +10,16 @@ setup: pyproject.toml
 
 test: $(VENV)/bin/activate
 	$(VENV)/bin/pytest
+
+
+setup-db: docker/psql-dev-docker-compose
+	docker-compose -f docker/psql-dev-docker-compose up -d
+
+
+alembic-commit:
+# get input message:
+	@read -p "Enter commit message: " message;
+	$(VENV)/bin/alembic revision --autogenerate -m "$$message"
+
+alembic-push:
+	$(VENV)/bin/alembic upgrade head
